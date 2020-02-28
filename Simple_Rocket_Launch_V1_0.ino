@@ -1,6 +1,10 @@
+
 //**************************************************
 //  Simple Rocket Launch V1.0 by Norf
 //  27.02.2020
+//  - LEDs are not used at the moment -> Could be a AddOn
+//  - Check Readme for Link to printed parts
+//  - Still in Progress will add some features in future
 //**************************************************
 
 #define IgnitionTIME    1500    // Ignition current duration in milliseconds.
@@ -29,11 +33,11 @@ void setup()
   digitalWrite(ArmButt, HIGH);      // turn on pullup resistor 
   digitalWrite(LaunchButt, HIGH);   // turn on pullup resistor 
   digitalWrite(Ignition,LOW);       // OPEN the ignition circuit
-  
 
+  
 // Startup Sound
 //**************************************************
- tone(Buzzer, 1000, 100);
+ tone(Buzzer, 1000, 100);           // tone(Buzzer, Frequnece, Time)
  delay(200);
  tone(Buzzer, 1500, 100);
  delay(200);
@@ -47,8 +51,8 @@ void setup()
  delay(200);
 }
 
-int  DownCntr;           // down counter 
-int  Cntdown  = 0;       // Countdown inactiv = 0 
+int  DownCntr;         // down counter Set to 10 seconds in program
+int  Cntdown=0;        // Countdown inactiv = 0 -> 1 = countdown started!
 
 //**************************************************
 // Main Loop
@@ -58,45 +62,47 @@ void loop()
 // Cancle Countdown
 //**************************************************
  if(!digitalRead(LaunchButt)||!digitalRead(ArmButt)){
-    Cntdown=0;                                          // Cancel Countdown
-    DownCntr=0;
+    Cntdown=0;                                      // Cancel Countdown
+    DownCntr=100;                                   // Set counter value back to 100
     digitalWrite(Buzzer,HIGH);
     delay(2000);
     digitalWrite(Buzzer,LOW);
   }
 
-  if(Cntdown==0){
+  if(Cntdown==0){                                   // If not armed/launched check for Arm and Launch Buttons
     WaitARM();  
     WaitLaunch();
   }
-// Countdown Beep
+// Countdown / Beep
 //**************************************************
   if (DownCntr > 30){
       if (DownCntr % 10 ==0)tone(Buzzer, 1000, 50);  //Tone every second.
      }
-  else if (DownCntr % 5 ==0)tone(Buzzer, 2000, 50);  //Tone every 1/5 second.
+  else if (DownCntr % 5 ==0)tone(Buzzer, 2000, 50);  //Tone every 1/2 second.
 
 // ROCKET LAUNCH!!!
 //**************************************************
   if (DownCntr ==0){
-    //**************************************************
+    
+    //***************IGNITION**********************
     tone(Buzzer, 440, IgnitionTIME);   
     digitalWrite(Ignition,HIGH);          
     delay(IgnitionTIME);
     digitalWrite(Ignition,LOW);           
-    //**************************************************
+    //***************IGNITION**********************
+    
     Cntdown=0;
     }
   while (millis()% 100);        //Wait until the next 1/10 of second.
   delay(50);
-  DownCntr=0;
+  DownCntr--;                   //Countervalue -1
 }
 
 // Wait Launch Button
 //**************************************************
 void WaitLaunch(){
-  while(digitalRead(LaunchButt));   // Launch Button pushed
-  Cntdown=1;
+  while(digitalRead(LaunchButt));   //Launch Button pushed
+  Cntdown=1;                        //Activate ountdwon
   delay(20);
   while(!digitalRead(LaunchButt));  //Debounce Launch Button.
 }
@@ -104,9 +110,9 @@ void WaitLaunch(){
 // Wait Arm Button
 //**************************************************
 void WaitARM(){
-  while(digitalRead(ArmButt)==1)  // Arm Button pushed
-  DownCntr=100;
-  Cntdown=0;
+  while(digitalRead(ArmButt)==1)  //Arm Button pushed
+  Cntdown=0;                      //still wait for launch button before countdown
+  DownCntr=100;                   //set countdown to 10 seconds 
   tone(Buzzer, 2000, 100);
   delay(100);
   tone(Buzzer, 2000, 100);
