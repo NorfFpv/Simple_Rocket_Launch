@@ -1,0 +1,27 @@
+You will need following to build it:
+
+CASE:
+  -3D printed Case + Switch Cover -> See Link to thingiverse.com
+ 
+ELECTRONICS:
+  -1 x Arduino Nano V3
+  -2 x 9V Battery 
+  -2 x 9V Battery Connector
+  -1 x 5V Piezo Buzzer
+  -1 x 12mm  2Pos Switch for Safety Switch
+  -1 x 6mm 2Pos Switch
+  -2 x 12mm Button
+  -1 x 5v LED 5mm + Resistor depends on color
+  -1 x N Channel Mosfet Type IRLB8721PbF
+  -1 x 10K Ohm Resistor for N-Fet
+  -1 x Pair of XT 30 Connector
+  -1 x Pair of Gator Clips
+  -1 x 10 meter Cable
+  
+HARDWARE_
+  -Hot Glue Gun to fix some parts inside
+  -Solder Iron
+  -Heatshrink
+  -Wires 
+  -1 x M3x6 for the Battery Cover
+  -4 x M3x8 for the Bottom Cover
