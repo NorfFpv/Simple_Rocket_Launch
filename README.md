@@ -9,4 +9,4 @@ https://www.thingiverse.com/thing:4189586
 
 Attached a Matetial List to build it!
 
-Will add some plans for wireing soon!
+Added a Shematic for wireing today :)
